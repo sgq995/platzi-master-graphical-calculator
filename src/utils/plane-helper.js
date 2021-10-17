@@ -12,8 +12,20 @@ class PlaneHelper {
     return (val - srcMin) / (srcMax - srcMin) * (dstMax - dstMin) + dstMin;
   }
 
+  widthToSVG(width) {
+    return Math.abs(
+      this._interpolate(width, 0, this.maxX - this.minX, 0, this.svgWidth)
+    );
+  }
+
   xToSVG(x) {
     return this._interpolate(x, this.minX, this.maxX, 0, this.svgWidth);
+  }
+
+  heightToSVG(height) {
+    return Math.abs(
+      this._interpolate(height, 0, this.maxY - this.minY, 0, this.svgHeight)
+    );
   }
 
   yToSVG(y) {
