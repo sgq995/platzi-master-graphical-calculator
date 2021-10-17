@@ -1,12 +1,12 @@
-function Point({ cx, cy, fill }) {
+import { toNumber } from "lodash";
+
+function Point({ planeHelper, cx, cy, fill }) {
   const SMALL_RADIUS = 2;
   const BIG_RADIUS = 5;
 
   const point = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
   point.setAttribute('r', SMALL_RADIUS);
-  point.setAttribute('fill', 'black');
-  point.setAttribute('cx', cx);
-  point.setAttribute('cy', cy);
+  point.setAttribute('fill', fill);
 
   point.addEventListener('mouseenter', function () {
     point.setAttribute('r', BIG_RADIUS);
@@ -18,17 +18,26 @@ function Point({ cx, cy, fill }) {
 
   const setAttribute = point.setAttribute.bind(point);
   point.setAttribute = function (qualifiedName, value) {
-    console.log({ qualifiedName, value });
     switch (qualifiedName) {
       case 'cx':
-        setAttribute(qualifiedName, value);
+        setAttribute(
+          qualifiedName,
+          planeHelper.xToSVG(
+            toNumber(value)
+          )
+        );
         break;
 
       case 'cy':
-        setAttribute(qualifiedName, value);
+        setAttribute(
+          qualifiedName,
+          planeHelper.yToSVG(
+            toNumber(value)
+          )
+        );
         break;
 
-      default: point.setAttribute('cx', cx);
+      default:
         setAttribute(qualifiedName, value);
         break;
     }
@@ -38,15 +47,26 @@ function Point({ cx, cy, fill }) {
   point.getAttribute = function (qualifiedName) {
     switch (qualifiedName) {
       case 'cx':
-        return getAttribute(qualifiedName);
+        return planeHelper.xFromSVG(
+          toNumber(
+            getAttribute(qualifiedName)
+          )
+        );
 
       case 'cy':
-        return getAttribute(qualifiedName);
+        return planeHelper.yFromSVG(
+          toNumber(
+            getAttribute(qualifiedName)
+          )
+        );
 
       default:
         return getAttribute(qualifiedName);
     }
   }
+
+  point.setAttribute('cx', cx);
+  point.setAttribute('cy', cy);
 
   return point;
 }

@@ -8,6 +8,7 @@ import SVG from "./components/SVG";
 import { render } from "./utils/render";
 import axisHelper from "./utils/axis-helper";
 import gridHelper from "./utils/grid-helper";
+import PlaneHelper from "./utils/plane-helper";
 
 function App() {
   const div = document.createElement('div');
@@ -20,9 +21,12 @@ function App() {
 
   const axisPath = axisHelper(width, height);
 
+  const planeHelper = new PlaneHelper(width, height, -5, 5, 5, -5);
+
   const point = Point({
-    cx: 320,
-    cy: 240,
+    planeHelper,
+    cx: 0,
+    cy: 0,
     fill: 'black'
   });
 
@@ -36,31 +40,33 @@ function App() {
     ],
   });
 
+  const controls = Container({
+    children: [
+      InputGroup({
+        children: [
+          InputLabel({ label: 'X' }),
+          InputNumber({
+            point: point,
+            pointAttr: 'cx',
+          }),
+        ],
+      }),
+      InputGroup({
+        children: [
+          InputLabel({ label: 'Y' }),
+          InputNumber({
+            point: point,
+            pointAttr: 'cy',
+          }),
+        ],
+      }),
+    ]
+  });
+
   render(
     [
       svg,
-      Container({
-        children: [
-          InputGroup({
-            children: [
-              InputLabel({ label: 'X' }),
-              InputNumber({
-                point: point,
-                pointAttr: 'cx',
-              }),
-            ],
-          }),
-          InputGroup({
-            children: [
-              InputLabel({ label: 'Y' }),
-              InputNumber({
-                point: point,
-                pointAttr: 'cy',
-              }),
-            ],
-          }),
-        ]
-      })
+      controls,
     ],
     div
   );
