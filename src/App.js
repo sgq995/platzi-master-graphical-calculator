@@ -22,7 +22,8 @@ function App() {
 
   const axisPath = axisHelper(width, height);
 
-  const planeHelper = new PlaneHelper(width, height, -5, 5, 5, -5);
+  const range = 5;
+  const planeHelper = new PlaneHelper(width, height, -range, range, range, -range);
 
   const point = Point({
     planeHelper,
