@@ -1,8 +1,5 @@
-import Container from "./components/Container";
-import InputGroup from "./components/InputGroup";
-import InputLabel from "./components/InputLabel";
-import InputNumber from "./components/InputNumber";
 import Point from "./components/Point";
+import PointControls from "./components/PointControls";
 import SVG from "./components/SVG";
 
 import { render } from "./utils/render";
@@ -40,28 +37,7 @@ function App() {
     ],
   });
 
-  const controls = Container({
-    children: [
-      InputGroup({
-        children: [
-          InputLabel({ label: 'X' }),
-          InputNumber({
-            point: point,
-            pointAttr: 'cx',
-          }),
-        ],
-      }),
-      InputGroup({
-        children: [
-          InputLabel({ label: 'Y' }),
-          InputNumber({
-            point: point,
-            pointAttr: 'cy',
-          }),
-        ],
-      }),
-    ]
-  });
+  const controls = PointControls({ point, });
 
   render(
     [
