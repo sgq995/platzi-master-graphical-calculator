@@ -52,9 +52,15 @@ const mapAttrToSetter = {
 
     const zero = planeHelper.yToSVG(0);
     
-    element.setAttribute('height', zero - newValue);
+    if (newValue <= zero) {
+      element.setAttribute('height', zero - newValue);  
 
-    return newValue;
+      return newValue;
+    } else {
+      element.setAttribute('height', newValue - zero);
+
+      return zero;
+    }
   },
 };
 
