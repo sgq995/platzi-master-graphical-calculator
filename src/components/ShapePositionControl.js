@@ -3,7 +3,7 @@ import InputGroup from "./InputGroup";
 import InputLabel from "./InputLabel";
 import InputNumber from "./InputNumber";
 
-function PointControls({ point }) {
+function ShapePositionControl({ shape, shapeXAttr, shapeYAttr }) {
   return (
     Container({
       children: [
@@ -11,8 +11,8 @@ function PointControls({ point }) {
           children: [
             InputLabel({ label: 'X' }),
             InputNumber({
-              point: point,
-              pointAttr: 'cx',
+              shape,
+              shapeAttr: shapeXAttr,
             }),
           ],
         }),
@@ -20,8 +20,8 @@ function PointControls({ point }) {
           children: [
             InputLabel({ label: 'Y' }),
             InputNumber({
-              point: point,
-              pointAttr: 'cy',
+              shape: shape,
+              shapeAttr: shapeYAttr,
             }),
           ],
         }),
@@ -30,4 +30,4 @@ function PointControls({ point }) {
   );
 }
 
-export default PointControls;
+export default ShapePositionControl;

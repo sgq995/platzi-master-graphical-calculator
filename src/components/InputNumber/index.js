@@ -1,13 +1,13 @@
 import "./index.css";
 
-function InputNumber({ point, pointAttr }) {
+function InputNumber({ shape, shapeAttr }) {
   const input = document.createElement('input');
   input.classList.add('input')
   input.type = 'number';
-  input.value = point.getAttribute(pointAttr);
+  input.value = shape.getAttribute(shapeAttr);
 
   input.addEventListener('change', function (event) {
-    point.setAttribute(pointAttr, event.target.value || 0);
+    shape.setAttribute(shapeAttr, event.target.value || 0);
   }, false);
 
   return input;

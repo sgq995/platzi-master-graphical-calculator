@@ -1,11 +1,15 @@
+import Bar from "./components/Bar";
+import Container from "./components/Container";
 import Point from "./components/Point";
-import PointControls from "./components/PointControls";
+import ShapePositionControl from "./components/ShapePositionControl";
 import SVG from "./components/SVG";
 
 import { render } from "./utils/render";
 import axisHelper from "./utils/axis-helper";
 import gridHelper from "./utils/grid-helper";
 import PlaneHelper from "./utils/plane-helper";
+
+import "./App.css";
 
 function App() {
   const div = document.createElement('div');
@@ -26,6 +30,13 @@ function App() {
     cy: 0,
     fill: 'black'
   });
+  
+  const bars = new Array(5).fill().map((_, index) => Bar({
+    planeHelper,
+    x: index,
+    y: 0,
+    fill: 'black',
+  }));
 
   const svg = SVG({
     width,
@@ -33,18 +44,58 @@ function App() {
     children: [
       gridPath,
       axisPath,
-      point,
+      // point,
+      // bars,
     ],
   });
 
-  const controls = PointControls({ point, });
+  const pointButton = document.createElement('button');
+  pointButton.textContent = 'Point';
+  pointButton.addEventListener('click', function (event) {
+    svg.appendChild(point);
+    bars.forEach(child => child.remove());
+
+    div.appendChild(pointControl);
+    barsControls.forEach(child => child.remove());
+  });
+
+  const barsButton = document.createElement('button');
+  barsButton.textContent = 'Bars';
+  barsButton.addEventListener('click', function (event) {
+    point.remove();
+    bars.forEach(child => svg.appendChild(child));
+
+    pointControl.remove();
+    barsControls.forEach(child => div.appendChild(child));
+  });
+
+  const interfaceSelector = Container({
+    children: [
+      pointButton,
+      barsButton,
+    ],
+  });
+
+  const pointControl = ShapePositionControl({
+    shape: point,
+    shapeXAttr: 'cx',
+    shapeYAttr: 'cy'
+  });
+
+  const barsControls = bars.map(bar => ShapePositionControl({
+    shape: bar,
+    shapeXAttr: 'x',
+    shapeYAttr: 'y',
+  }));
 
   render(
     [
       svg,
-      controls,
+      interfaceSelector,
+      // pointControl,
+      // barsControls,
     ],
-    div
+    div,
   );
 
   return div;
