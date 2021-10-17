@@ -5,14 +5,19 @@ import InputNumber from "./components/InputNumber";
 import Point from "./components/Point";
 import SVG from "./components/SVG";
 
+import { render } from "./utils/render";
+
 function App() {
+  const div = document.createElement('div');
+  div.classList.add('app');
+
   const point = Point({
     cx: 320,
     cy: 240,
     fill: 'black'
   });
 
-  return (
+  render(
     [
       SVG({ children: point, }),
       Container({
@@ -37,8 +42,11 @@ function App() {
           }),
         ]
       })
-    ]
+    ],
+    div
   );
+  
+  return div;
 }
 
 export default App;

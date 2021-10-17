@@ -1,5 +1,8 @@
+import "./index.css";
+
 function InputNumber({ point, pointAttr }) {
   const input = document.createElement('input');
+  input.classList.add('input')
   input.type = 'number';
   input.value = point.getAttribute(pointAttr);
 

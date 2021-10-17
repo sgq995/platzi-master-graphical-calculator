@@ -1,0 +1,7 @@
+.input-group .input-label {
+  padding: 0.5rem;
+
+  background-color: GhostWhite;
+  border: 1px solid black;
+  border-right: none;
+}

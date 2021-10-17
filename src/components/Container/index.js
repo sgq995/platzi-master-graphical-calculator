@@ -1,4 +1,6 @@
-import { render } from "../utils/render";
+import { render } from "../../utils/render";
+
+import "./index.css";
 
 function Container({ children }) {
   const div = document.createElement('div');
